@@ -16,7 +16,6 @@ public class MaterialRepository  {
             " ON T.artikelnummer = S.artikelnummer \n" +
             " WHEN MATCHED \n" +
             " AND ( \n" +
-            " COALESCE(T.artikelnummer,'') <> COALESCE(S.artikelnummer,'') \n" +
             " OR COALESCE(T.aktives_teil,'') <> COALESCE(S.aktives_teil,'') \n" +
             " OR COALESCE(T.eigenfertigung_oder_zukaufteil,'') <> COALESCE(S.eigenfertigung_oder_zukaufteil,'') \n" +
             " OR COALESCE(T.artikelbezeichnung_teil_1,'') <> COALESCE(S.artikelbezeichnung_teil_1,'') \n" +
