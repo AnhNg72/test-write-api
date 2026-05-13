@@ -110,11 +110,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<image>
-						<name>172.29.176.1:5000/test-write-api:0.0.1-SNAPSHOT</name>
-					</image>
-				</configuration>
+<!--				<configuration>-->
+<!--					<image>-->
+<!--						<name>172.29.176.1:5000/test-write-api:0.0.1-SNAPSHOT</name>-->
+<!--					</image>-->
+<!--				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>
