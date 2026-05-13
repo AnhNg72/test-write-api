@@ -22,9 +22,9 @@ jobs:
 #          distribution: temurin
 #          java-version: "11"
 
-      # 3. Build the application (optional if Dockerfile builds it)
-      - name: Build with Maven
-        run: ./mvnw clean package -DskipTests
+#      # 3. Build the application (optional if Dockerfile builds it)
+#      - name: Build with Maven
+#        run: ./mvnw clean package -DskipTests
 
       # 4. Set up Docker Buildx
       - name: Set up Docker Buildx
