@@ -28,6 +28,7 @@ public class MaterialRepository  {
             " WHEN NOT MATCHED THEN INSERT (artikelnummer,aktives_teil,eigenfertigung_oder_zukaufteil,artikelbezeichnung_teil_1,artikelbezeichnung_teil_2,zolltarifnummer,einkaufspreis,losgroesse,mengeneinheit,kalkulationsrelevant,datensatztyp) \n" +
             " VALUES (S.artikelnummer,S.aktives_teil,S.eigenfertigung_oder_zukaufteil,S.artikelbezeichnung_teil_1,S.artikelbezeichnung_teil_2,S.zolltarifnummer,S.einkaufspreis,S.losgroesse,S.mengeneinheit,S.kalkulationsrelevant,S.datensatztyp);";
 
+
     private final JdbcTemplate jdbc;
 
     public MaterialRepository(JdbcTemplate jdbc) {
@@ -35,7 +36,7 @@ public class MaterialRepository  {
     }
 
     public void upsertBatch(List<MaterialEntity> articles) {
-        jdbc.batchUpdate(UPSERT_SQL, articles, 200, (ps, it) -> {
+        jdbc.batchUpdate(UPSERT_SQL, articles, 10, (ps, it) -> {
             ps.setString(1, trim(it.getArtikelnummer()));
             ps.setString(2, trim(it.getAktives_teil()));
             ps.setString(3, trim(it.getEigenfertigung_oder_zukaufteil()));
