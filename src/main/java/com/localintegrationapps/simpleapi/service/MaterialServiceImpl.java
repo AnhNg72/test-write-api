@@ -17,6 +17,7 @@ public class MaterialServiceImpl implements MaterialService {
     MaterialRepository materialRepository;
 
     public MaterialServiceImpl(MaterialRepository materialRepository) {
+
         this.materialRepository = materialRepository;
     }
 
