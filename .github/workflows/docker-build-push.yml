@@ -26,9 +26,9 @@ jobs:
 #      - name: Build with Maven
 #        run: ./mvnw clean package -DskipTests
 
-      # 4. Set up Docker Buildx
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+#      # 4. Set up Docker Buildx
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v3
 
       # 5. Login to private registry
       - name: Login to Docker Registry
