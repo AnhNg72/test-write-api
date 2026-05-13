@@ -17,9 +17,10 @@ jobs:
 
       # 2. Debug environment (important for first runs)
       - name: Debug environment
-        run: |
-          echo "Running on:"
-          uname -a
+        run: |  
+          echo "Running on $RUNNER_OS"
+          if [ "$RUNNER_OS" = "Linux" ]; then uname -a; fi
+          if [ "$RUNNER_OS" = "Windows" ]; then systeminfo; fi
           echo "Docker version:"
           docker version
           echo "Kubectl version:"
