@@ -4,9 +4,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Repository
 public class MaterialRepository  {
+    private Logger log = LoggerFactory.getLogger(MaterialRepository.class);
 
     public static final String UPSERT_SQL = "MERGE INTO MATERIAL AS T USING (VALUES (?,?,?,?,?,?,?,?,?,?,?)) AS S \n" +
             "(artikelnummer,aktives_teil,eigenfertigung_oder_zukaufteil,artikelbezeichnung_teil_1,artikelbezeichnung_teil_2,zolltarifnummer,einkaufspreis,losgroesse,mengeneinheit,kalkulationsrelevant,datensatztyp) \n" +
@@ -29,6 +32,7 @@ public class MaterialRepository  {
             " VALUES (S.artikelnummer,S.aktives_teil,S.eigenfertigung_oder_zukaufteil,S.artikelbezeichnung_teil_1,S.artikelbezeichnung_teil_2,S.zolltarifnummer,S.einkaufspreis,S.losgroesse,S.mengeneinheit,S.kalkulationsrelevant,S.datensatztyp);";
 
 
+
     private final JdbcTemplate jdbc;
 
     public MaterialRepository(JdbcTemplate jdbc) {
@@ -49,6 +53,9 @@ public class MaterialRepository  {
             ps.setString(10, trim(it.getKalkulationsrelevant()));
             ps.setString(11, trim(it.getDatensatztyp()));
         });
+
+        log.info("The upsert command is: {}", UPSERT_SQL);
+        log.info("The upsert batch is: {}", articles);
     }
 
     public static String trim(String s) {
