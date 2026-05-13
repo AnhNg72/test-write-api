@@ -15,8 +15,8 @@ RUN mvn dependency:go-offline -B
 COPY src ./src
 
 # Build the JAR
-RUN mvn clean package -DskipTests
-RUN ./mvnw spring-boot:build-image "-Dmaven.test.skip=true"
+#RUN mvn clean package -DskipTests
+RUN mvn spring-boot:build-image "-Dmaven.test.skip=true"
 
 
 # -------------------------------
