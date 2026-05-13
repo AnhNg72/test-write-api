@@ -16,6 +16,7 @@ COPY src ./src
 
 # Build the JAR
 RUN mvn clean package -DskipTests
+RUN ./mvnw spring-boot:build-image "-Dmaven.test.skip=true"
 
 
 # -------------------------------

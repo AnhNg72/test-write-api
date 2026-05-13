@@ -29,8 +29,7 @@ public class MaterialRepository  {
             " THEN UPDATE SET T.artikelnummer =S.artikelnummer, T.aktives_teil =S.aktives_teil, T.eigenfertigung_oder_zukaufteil =S.eigenfertigung_oder_zukaufteil, T.artikelbezeichnung_teil_1 =S.artikelbezeichnung_teil_1, T.artikelbezeichnung_teil_2 =S.artikelbezeichnung_teil_2, T.zolltarifnummer =S.zolltarifnummer, T.einkaufspreis =S.einkaufspreis, T.losgroesse =S.losgroesse, T.mengeneinheit =S.mengeneinheit, T.kalkulationsrelevant =S.kalkulationsrelevant, T.datensatztyp =S.datensatztyp, T.updated_at = CURRENT_TIMESTAMP \n" +
             " WHEN NOT MATCHED THEN INSERT (artikelnummer,aktives_teil,eigenfertigung_oder_zukaufteil,artikelbezeichnung_teil_1,artikelbezeichnung_teil_2,zolltarifnummer,einkaufspreis,losgroesse,mengeneinheit,kalkulationsrelevant,datensatztyp) \n" +
             " VALUES (S.artikelnummer,S.aktives_teil,S.eigenfertigung_oder_zukaufteil,S.artikelbezeichnung_teil_1,S.artikelbezeichnung_teil_2,S.zolltarifnummer,S.einkaufspreis,S.losgroesse,S.mengeneinheit,S.kalkulationsrelevant,S.datensatztyp);";
-
-
+    
 
     private final JdbcTemplate jdbc;
 
