@@ -19,6 +19,7 @@ public class MaterialRepository  {
             " OR COALESCE(T.artikelbezeichnung_teil_1,'') <> COALESCE(S.artikelbezeichnung_teil_1,'') \n" +
             " OR COALESCE(T.artikelbezeichnung_teil_2,'') <> COALESCE(S.artikelbezeichnung_teil_2,'') \n" +
             " OR COALESCE(T.zolltarifnummer,'') <> COALESCE(S.zolltarifnummer,'') \n" +
+            " OR COALESCE(T.einkaufspreis,'') <> COALESCE(S.einkaufspreis,'') \n" +
             " OR COALESCE(T.losgroesse,'') <> COALESCE(S.losgroesse,'') \n" +
             " OR COALESCE(T.mengeneinheit,'') <> COALESCE(S.mengeneinheit,'') \n" +
             " OR COALESCE(T.kalkulationsrelevant,'') <> COALESCE(S.kalkulationsrelevant,'') \n" +
