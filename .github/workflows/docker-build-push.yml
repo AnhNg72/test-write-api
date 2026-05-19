@@ -45,5 +45,17 @@ jobs:
           context: .
           push: true
           tags: |
-            172.29.176.1:5000/test-write-api:latest
+            172.29.176.1:5000/test-write-api:${{ github.sha }}
 #          tags: 172.29.176.1:5000/test-write-api:0.0.1-SNAPSHOT
+
+        # 7. update deployment manifest
+      - name: Update deployment manifest
+        run: |
+            sed -i "s|image: .*|image: 172.29.176.1:5000/test-write-api:${{ github.sha }}|" k8s/deployment.yaml
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Update image to ${{ github.sha }}"
+          git push
