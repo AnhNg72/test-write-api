@@ -44,4 +44,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: 172.29.176.1:5000/test-write-api:0.0.1-SNAPSHOT
+          tags: |
+            172.29.176.1:5000/test-write-api:${{ github.sha }}
+            172.29.176.1:5000/test-write-api:latest
+
+#          tags: 172.29.176.1:5000/test-write-api:0.0.1-SNAPSHOT

@@ -1,5 +1,6 @@
 .idea
 actions-runner
+k8s
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
