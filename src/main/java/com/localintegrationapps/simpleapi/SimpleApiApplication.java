@@ -14,9 +14,9 @@ public class SimpleApiApplication {
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-						.title("Updated Test Write API v5")
-						.version("5.0")
-						.description("Updated API documentation v5 for API that writes data to DB"));
+						.title("Updated Test Write API v6")
+						.version("6.0")
+						.description("Updated API documentation v6 for API that writes data to DB"));
 	}
 
 	public static void main(String[] args) {
