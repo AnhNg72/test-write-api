@@ -14,9 +14,9 @@ public class SimpleApiApplication {
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-						.title("Coffee Orders API")
+						.title("Test Write API")
 						.version("1.0")
-						.description("API documentation for Coffee Orders API"));
+						.description("API documentation for API that writes data to DB"));
 	}
 
 	public static void main(String[] args) {
