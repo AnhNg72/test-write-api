@@ -50,8 +50,9 @@ jobs:
 
         # 7. update deployment manifest
       - name: Update deployment manifest
-        run: |
-            sed -i "s|image: .*|image: 172.29.176.1:5000/test-write-api:${{ github.sha }}|" k8s/deployment.yaml
+        run: |          
+          $tag="${{ github.sha }}"
+          (Get-Content k8s/deployment.yaml) -replace 'image: .*', "image: 172.29.176.1:5000/test-write-api:$tag" | Set-Content k8s/deployment.yaml
       - name: Commit changes
         run: |
           git config user.name "github-actions"
