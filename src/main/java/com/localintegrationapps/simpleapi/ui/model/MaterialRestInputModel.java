@@ -2,7 +2,7 @@ package com.localintegrationapps.simpleapi.ui.model;
 
 import javax.validation.constraints.NotNull;
 
-public class RestInputModel {
+public class MaterialRestInputModel {
 
     @NotNull
     private String artikelnummer;
