@@ -1,11 +1,14 @@
 package com.localintegrationapps.simpleapi.ui.controller;
 
+import com.localintegrationapps.simpleapi.dto.AddressDTO;
 import com.localintegrationapps.simpleapi.dto.DocumentDTO;
 import com.localintegrationapps.simpleapi.dto.MaterialDTO;
 import com.localintegrationapps.simpleapi.dto.OrderDTO;
+import com.localintegrationapps.simpleapi.service.AddressService;
 import com.localintegrationapps.simpleapi.service.DocumentService;
 import com.localintegrationapps.simpleapi.service.MaterialService;
 import com.localintegrationapps.simpleapi.service.OrdersService;
+import com.localintegrationapps.simpleapi.ui.model.AddressRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.DocumentRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.MaterialRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.OrderRestInputModel;
@@ -25,6 +28,7 @@ public class GeneralController {
     MaterialService materialService;
     OrdersService ordersService;
     DocumentService documentService;
+    AddressService addressService;
 
     public GeneralController(MaterialService materialService, OrdersService ordersService, DocumentService documentService) {
 
@@ -88,9 +92,25 @@ public class GeneralController {
         documentService.createOrUpdateDocumentService(returnValue);
 
         return returnValue;
-
     }
 
-//    @PostMapping("/Addresses")
+    @PostMapping("/Addresses")
+    public List<AddressDTO> createOrUpdateAddress(@RequestBody List<AddressRestInputModel> payloadList) {
+
+        List<AddressDTO> returnValue = new ArrayList<>();
+
+        for (AddressRestInputModel payload : payloadList) {
+            System.out.println(payload);
+
+            ModelMapper modelMapper = new ModelMapper();
+            AddressDTO addressDTO = modelMapper.map(payload, AddressDTO.class);
+
+            returnValue.add(addressDTO);
+        }
+        addressService.createOrUpdateAddressService(returnValue);
+
+        return returnValue;
+    }
+
 //    @PostMapping("/PartLists")
 }
