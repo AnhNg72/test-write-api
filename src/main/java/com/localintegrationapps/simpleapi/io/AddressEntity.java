@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 //@IdClass(AddressId.class)
 public class AddressEntity {
 
-//    @Id
+    @Id
     private String geschaeftspartnernummer;
     private String name1;
     private String name2;
