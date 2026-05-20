@@ -26,7 +26,7 @@ public class AddressesRepository {
             " OR COALESCE(T.land_iso_code,'') <> COALESCE(S.land_iso_code,'') \n" +
             " OR COALESCE(T.sprachschluessel,'') <> COALESCE(S.sprachschluessel,'') \n" +
             " OR COALESCE(T.datensatztyp,'') <> COALESCE(S.datensatztyp,'')) \n" +
-            " THEN UPDATE SET T.name1=S.name1, T.name2 =S.name2, T.strasse=S.strasse, T.ort=S.ort, T.postfach=S.postfach, T.plz_strasse =S.plz_strasse, T.plz_postfach =S.plz_postfach, T.land_iso_code =S.land_iso_code, T.sprachschluessel =S.sprachschluessel, T.datensatztyp =S.datensatztyp, T.updated_at = CURRENT_TIMESTAMP \n" +
+            " THEN UPDATE SET T.geschaeftspartnernummer=S.geschaeftspartnernummer, T.name1=S.name1, T.name2 =S.name2, T.strasse=S.strasse, T.ort=S.ort, T.postfach=S.postfach, T.plz_strasse =S.plz_strasse, T.plz_postfach =S.plz_postfach, T.land_iso_code =S.land_iso_code, T.sprachschluessel =S.sprachschluessel, T.datensatztyp =S.datensatztyp, T.geschaeftspartnertyp=S.geschaeftspartnertyp, T.updated_at = CURRENT_TIMESTAMP \n" +
             " WHEN NOT MATCHED THEN INSERT (geschaeftspartnernummer,name1,name2,strasse,ort,postfach,plz_strasse,plz_postfach,land_iso_code,sprachschluessel,geschaeftspartnertyp,datensatztyp) \n" +
             " VALUES (S.geschaeftspartnernummer,S.name1,S.name2,S.strasse,S.ort,S.postfach,S.plz_strasse,S.plz_postfach,S.land_iso_code,S.sprachschluessel,S.geschaeftspartnertyp,S.datensatztyp);";
 

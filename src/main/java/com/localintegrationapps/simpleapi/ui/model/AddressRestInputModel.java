@@ -1,12 +1,8 @@
 package com.localintegrationapps.simpleapi.ui.model;
 
-import javax.validation.constraints.NotNull;
-
 public class AddressRestInputModel {
 
-//    @NotNull
     private String geschaeftspartnernummer;
-
     private String name1;
     private String name2;
     private String strasse;
@@ -16,10 +12,7 @@ public class AddressRestInputModel {
     private String plz_postfach;
     private String land_iso_code;
     private String sprachschluessel;
-
-//    @NotNull
     private String geschaeftspartnertyp;
-
     private String datensatztyp;
 
     public String getGeschaeftspartnernummer() {
