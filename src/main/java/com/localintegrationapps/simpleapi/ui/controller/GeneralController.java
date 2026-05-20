@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class GeneralController {
     }
 
     @PostMapping("/Articles")
-    public List<MaterialDTO> createOrUpdateMaterial(@RequestBody List<MaterialRestInputModel> payloadList) {
+    public List<MaterialDTO> createOrUpdateMaterial(@Valid @RequestBody List<MaterialRestInputModel> payloadList) {
 
         List<MaterialDTO> returnValue = new ArrayList<>();
 
@@ -57,7 +58,7 @@ public class GeneralController {
     }
 
     @PostMapping("/Orders")
-    public List<OrderDTO> createOrUpdateOrder(@RequestBody List<OrderRestInputModel> payloadList) {
+    public List<OrderDTO> createOrUpdateOrder(@Valid @RequestBody List<OrderRestInputModel> payloadList) {
 
         List<OrderDTO> returnValue = new ArrayList<>();
 
@@ -77,7 +78,7 @@ public class GeneralController {
 
 
     @PostMapping("/Documents")
-    public List<DocumentDTO> createOrUpdateDocument(@RequestBody List<DocumentRestInputModel> payloadList) {
+    public List<DocumentDTO> createOrUpdateDocument(@Valid @RequestBody List<DocumentRestInputModel> payloadList) {
 
         List<DocumentDTO> returnValue = new ArrayList<>();
 
@@ -95,7 +96,7 @@ public class GeneralController {
     }
 
     @PostMapping("/Addresses")
-    public List<AddressDTO> createOrUpdateAddress(@RequestBody List<AddressRestInputModel> payloadList) {
+    public List<AddressDTO> createOrUpdateAddress(@Valid @RequestBody List<AddressRestInputModel> payloadList) {
 
         List<AddressDTO> returnValue = new ArrayList<>();
 
