@@ -46,11 +46,11 @@ public class AddressesRepository {
             ps.setString(5, trim(it.getOrt()));
             ps.setString(6, trim(it.getPostfach()));
             ps.setString(7, trim(it.getPlz_strasse()));
-            ps.setString(7, trim(it.getPlz_postfach()));
-            ps.setString(7, trim(it.getLand_iso_code()));
-            ps.setString(7, trim(it.getSprachschluessel()));
-            ps.setString(7, trim(it.getGeschaeftspartnertyp()));
-            ps.setString(7, trim(it.getDatensatztyp()));
+            ps.setString(8, trim(it.getPlz_postfach()));
+            ps.setString(9, trim(it.getLand_iso_code()));
+            ps.setString(10, trim(it.getSprachschluessel()));
+            ps.setString(11, trim(it.getGeschaeftspartnertyp()));
+            ps.setString(12, trim(it.getDatensatztyp()));
         });
 
         log.info("The upsert command is: {}", UPSERT_SQL);
