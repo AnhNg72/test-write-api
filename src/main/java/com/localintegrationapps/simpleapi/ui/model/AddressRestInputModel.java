@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class AddressRestInputModel {
 
-    @NotNull
+//    @NotNull
     private String geschaeftspartnernummer;
 
     private String name1;
@@ -17,7 +17,7 @@ public class AddressRestInputModel {
     private String land_iso_code;
     private String sprachschluessel;
 
-    @NotNull
+//    @NotNull
     private String geschaeftspartnertyp;
 
     private String datensatztyp;
