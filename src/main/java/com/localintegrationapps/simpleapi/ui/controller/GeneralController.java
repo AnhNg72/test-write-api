@@ -102,7 +102,7 @@ public class GeneralController {
     public List<AddressDTO> createOrUpdateAddress(@Valid @RequestBody List<AddressRestInputModel> payloadList) {
         Logger log = LoggerFactory.getLogger(AddressesRepository.class);
 
-        log.info("Incoming request: {}", payloadList);
+        log.info("Incoming request includes: {}", payloadList);
 
         List<AddressDTO> returnValue = new ArrayList<>();
 

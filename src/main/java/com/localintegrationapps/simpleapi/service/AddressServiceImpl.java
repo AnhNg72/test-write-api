@@ -1,8 +1,10 @@
 package com.localintegrationapps.simpleapi.service;
 
 import com.localintegrationapps.simpleapi.dto.AddressDTO;
+import com.localintegrationapps.simpleapi.dto.DocumentDTO;
 import com.localintegrationapps.simpleapi.io.AddressEntity;
 import com.localintegrationapps.simpleapi.io.AddressesRepository;
+import com.localintegrationapps.simpleapi.io.DocumentEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,15 +25,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void createOrUpdateAddressService(List<AddressDTO> addressesDTOList) {
 
-        List<AddressEntity> addressesEntityList = new ArrayList<>();
+        List<AddressEntity> addressEntityList = new ArrayList<>();
 
         for (AddressDTO addressDTO : addressesDTOList) {
             ModelMapper modelMapper = new ModelMapper();
             AddressEntity addressEntity = modelMapper.map(addressDTO, AddressEntity.class);
 
-            addressesEntityList.add(addressEntity);
+            addressEntityList.add(addressEntity);
         }
-        addressesRepository.upsertBatch(addressesEntityList);
+        addressesRepository.upsertBatch(addressEntityList);
     }
 }
 
