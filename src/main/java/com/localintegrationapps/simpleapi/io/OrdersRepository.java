@@ -11,7 +11,7 @@ import java.util.List;
 public class OrdersRepository {
     private Logger log = LoggerFactory.getLogger(OrdersRepository.class);
 
-    public static final String UPSERT_SQL = "MERGE INTO BESTELLUNG AS T USING (VALUES (?,?,?,?,?,?,?,?,?,?)) AS S \n" +
+    public static final String UPSERT_SQL = "MERGE INTO ORDERS AS T USING (VALUES (?,?,?,?,?,?,?,?,?,?)) AS S \n" +
             "(bestellnummer,artikelnummer,lieferantennummer,bestellungsdatum,artikelpositionsnummer,artikelnummer_des_lieferanten,einkaufspreis,losgroesse,mengeneinheit,datensatztyp) \n" +
             " ON (T.bestellnummer = S.bestellnummer AND T.lieferantennummer = S.lieferantennummer AND T.artikelpositionsnummer = S.artikelpositionsnummer) \n" +
             " WHEN MATCHED \n" +
