@@ -1,9 +1,12 @@
 package com.localintegrationapps.simpleapi.ui.controller;
 
+import com.localintegrationapps.simpleapi.dto.DocumentDTO;
 import com.localintegrationapps.simpleapi.dto.MaterialDTO;
 import com.localintegrationapps.simpleapi.dto.OrderDTO;
+import com.localintegrationapps.simpleapi.service.DocumentService;
 import com.localintegrationapps.simpleapi.service.MaterialService;
 import com.localintegrationapps.simpleapi.service.OrdersService;
+import com.localintegrationapps.simpleapi.ui.model.DocumentRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.MaterialRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.OrderRestInputModel;
 import org.modelmapper.ModelMapper;
@@ -21,11 +24,13 @@ public class GeneralController {
 
     MaterialService materialService;
     OrdersService ordersService;
+    DocumentService documentService;
 
-    public GeneralController(MaterialService materialService, OrdersService ordersService) {
+    public GeneralController(MaterialService materialService, OrdersService ordersService, DocumentService documentService) {
 
         this.materialService = materialService;
         this.ordersService = ordersService;
+        this.documentService = documentService;
     }
 
     @PostMapping("/Articles")
@@ -66,7 +71,26 @@ public class GeneralController {
 
     }
 
+
+    @PostMapping("/Documents")
+    public List<DocumentDTO> createOrUpdateDocument(@RequestBody List<DocumentRestInputModel> payloadList) {
+
+        List<DocumentDTO> returnValue = new ArrayList<>();
+
+        for (DocumentRestInputModel payload : payloadList) {
+            System.out.println(payload);
+
+            ModelMapper modelMapper = new ModelMapper();
+            DocumentDTO documentDTO = modelMapper.map(payload, DocumentDTO.class);
+
+            returnValue.add(documentDTO);
+        }
+        documentService.createOrUpdateDocumentService(returnValue);
+
+        return returnValue;
+
+    }
+
 //    @PostMapping("/Addresses")
-//    @PostMapping("/Documents")
 //    @PostMapping("/PartLists")
 }
