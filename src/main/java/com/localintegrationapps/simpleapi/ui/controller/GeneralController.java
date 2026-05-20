@@ -4,6 +4,7 @@ import com.localintegrationapps.simpleapi.dto.AddressDTO;
 import com.localintegrationapps.simpleapi.dto.DocumentDTO;
 import com.localintegrationapps.simpleapi.dto.MaterialDTO;
 import com.localintegrationapps.simpleapi.dto.OrderDTO;
+import com.localintegrationapps.simpleapi.io.AddressesRepository;
 import com.localintegrationapps.simpleapi.service.AddressService;
 import com.localintegrationapps.simpleapi.service.DocumentService;
 import com.localintegrationapps.simpleapi.service.MaterialService;
@@ -13,6 +14,8 @@ import com.localintegrationapps.simpleapi.ui.model.DocumentRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.MaterialRestInputModel;
 import com.localintegrationapps.simpleapi.ui.model.OrderRestInputModel;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,6 +100,9 @@ public class GeneralController {
 
     @PostMapping("/Addresses")
     public List<AddressDTO> createOrUpdateAddress(@Valid @RequestBody List<AddressRestInputModel> payloadList) {
+        Logger log = LoggerFactory.getLogger(AddressesRepository.class);
+
+        log.info("Incoming request: {}", payloadList);
 
         List<AddressDTO> returnValue = new ArrayList<>();
 

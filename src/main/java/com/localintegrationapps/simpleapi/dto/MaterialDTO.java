@@ -1,6 +1,7 @@
 package com.localintegrationapps.simpleapi.dto;
 
 public class MaterialDTO {
+
     private String artikelnummer;
     private String aktives_teil;
     private String eigenfertigung_oder_zukaufteil;
