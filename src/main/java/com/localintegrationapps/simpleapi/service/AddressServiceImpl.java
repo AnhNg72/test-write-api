@@ -6,6 +6,8 @@ import com.localintegrationapps.simpleapi.io.AddressEntity;
 import com.localintegrationapps.simpleapi.io.AddressesRepository;
 import com.localintegrationapps.simpleapi.io.DocumentEntity;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void createOrUpdateAddressService(List<AddressDTO> addressesDTOList) {
+        Logger log = LoggerFactory.getLogger(AddressesRepository.class);
+
+        log.info("The provided addressesDTOList is: {}", addressesDTOList);
 
         List<AddressEntity> addressEntityList = new ArrayList<>();
 

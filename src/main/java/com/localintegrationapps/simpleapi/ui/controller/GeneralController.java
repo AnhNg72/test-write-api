@@ -5,6 +5,7 @@ import com.localintegrationapps.simpleapi.dto.DocumentDTO;
 import com.localintegrationapps.simpleapi.dto.MaterialDTO;
 import com.localintegrationapps.simpleapi.dto.OrderDTO;
 import com.localintegrationapps.simpleapi.io.AddressesRepository;
+import com.localintegrationapps.simpleapi.io.DocumentsRepository;
 import com.localintegrationapps.simpleapi.service.AddressService;
 import com.localintegrationapps.simpleapi.service.DocumentService;
 import com.localintegrationapps.simpleapi.service.MaterialService;
@@ -100,9 +101,6 @@ public class GeneralController {
 
     @PostMapping("/Addresses")
     public List<AddressDTO> createOrUpdateAddress(@Valid @RequestBody List<AddressRestInputModel> payloadList) {
-        Logger log = LoggerFactory.getLogger(AddressesRepository.class);
-
-        log.info("Incoming request includes: {}", payloadList);
 
         List<AddressDTO> returnValue = new ArrayList<>();
 

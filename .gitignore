@@ -1,6 +1,6 @@
 .idea
 actions-runner
-k8s/deployment.yaml
+#k8s/deployment.yaml
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
