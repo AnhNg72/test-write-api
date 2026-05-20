@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="addresses")
-@IdClass(AddressId.class)
+//@IdClass(AddressId.class)
 public class AddressEntity {
 
-    @Id
+//    @Id
     private String geschaeftspartnernummer;
     private String name1;
     private String name2;
@@ -21,7 +21,7 @@ public class AddressEntity {
     private String plz_postfach;
     private String land_iso_code;
     private String sprachschluessel;
-    @Id
+//    @Id
     private String geschaeftspartnertyp;
     private String datensatztyp;
 
