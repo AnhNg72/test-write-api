@@ -26,9 +26,6 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void createOrUpdateAddressService(List<AddressDTO> addressesDTOList) {
-        Logger log = LoggerFactory.getLogger(AddressesRepository.class);
-
-        log.info("The provided addressesDTOList is: {}", addressesDTOList);
 
         List<AddressEntity> addressEntityList = new ArrayList<>();
 

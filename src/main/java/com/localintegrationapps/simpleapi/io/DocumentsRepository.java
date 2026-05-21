@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class DocumentsRepository {
-    private Logger log = LoggerFactory.getLogger(OrdersRepository.class);
+    private Logger log = LoggerFactory.getLogger(DocumentsRepository.class);
 
     public static final String UPSERT_SQL = "MERGE INTO DOCUMENTS AS T USING (VALUES (?,?,?,?,?,?,?)) AS S \n" +
             "(belegnummer,bestellnummer,belegsdatum,belegtyp,artikelnummer,artikelpositionsnummer,datensatztyp) \n" +

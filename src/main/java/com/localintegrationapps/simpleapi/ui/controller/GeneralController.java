@@ -1,19 +1,10 @@
 package com.localintegrationapps.simpleapi.ui.controller;
 
-import com.localintegrationapps.simpleapi.dto.AddressDTO;
-import com.localintegrationapps.simpleapi.dto.DocumentDTO;
-import com.localintegrationapps.simpleapi.dto.MaterialDTO;
-import com.localintegrationapps.simpleapi.dto.OrderDTO;
+import com.localintegrationapps.simpleapi.dto.*;
 import com.localintegrationapps.simpleapi.io.AddressesRepository;
 import com.localintegrationapps.simpleapi.io.DocumentsRepository;
-import com.localintegrationapps.simpleapi.service.AddressService;
-import com.localintegrationapps.simpleapi.service.DocumentService;
-import com.localintegrationapps.simpleapi.service.MaterialService;
-import com.localintegrationapps.simpleapi.service.OrdersService;
-import com.localintegrationapps.simpleapi.ui.model.AddressRestInputModel;
-import com.localintegrationapps.simpleapi.ui.model.DocumentRestInputModel;
-import com.localintegrationapps.simpleapi.ui.model.MaterialRestInputModel;
-import com.localintegrationapps.simpleapi.ui.model.OrderRestInputModel;
+import com.localintegrationapps.simpleapi.service.*;
+import com.localintegrationapps.simpleapi.ui.model.*;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +26,19 @@ public class GeneralController {
     OrdersService ordersService;
     DocumentService documentService;
     AddressService addressService;
+    ComponentService componentService;
 
-    public GeneralController(MaterialService materialService, OrdersService ordersService, DocumentService documentService) {
+    public GeneralController(MaterialService materialService,
+                             OrdersService ordersService,
+                             DocumentService documentService,
+                             AddressService addressService,
+                             ComponentService componentService) {
 
         this.materialService = materialService;
         this.ordersService = ordersService;
         this.documentService = documentService;
+        this.addressService = addressService;
+        this.componentService = componentService;
     }
 
     @PostMapping("/Articles")
@@ -100,7 +99,7 @@ public class GeneralController {
     }
 
     @PostMapping("/Addresses")
-    public List<AddressDTO> createOrUpdateAddress(@Valid @RequestBody List<AddressRestInputModel> payloadList) {
+    public String createOrUpdateAddress(@Valid @RequestBody List<AddressRestInputModel> payloadList) {
 
         List<AddressDTO> returnValue = new ArrayList<>();
 
@@ -114,8 +113,48 @@ public class GeneralController {
         }
         addressService.createOrUpdateAddressService(returnValue);
 
-        return returnValue;
+        return null;
     }
 
-//    @PostMapping("/PartLists")
+    @PostMapping("/PartLists")
+    public String createOrUpdatePartLists(@Valid @RequestBody List<ComponentRestInputModel> payloadList) {
+        ModelMapper modelMapper = new ModelMapper();
+
+
+        for (ComponentRestInputModel payload : payloadList) {
+            List<ComponentDTO> listComponentDTO = new ArrayList<>();
+
+            System.out.println(payload);
+
+            String artikelnummer = modelMapper.map(payload.getKopf(), ComponentKopfDTO.class).getArtikelnummer();
+
+            List<ComponentPositionRestInputModel> listComponentPositionRest = payload.getPosition();
+
+            for (ComponentPositionRestInputModel payload1 : listComponentPositionRest) {
+
+                ComponentPositionDTO componentPositionDTO = modelMapper.map(payload1, ComponentPositionDTO.class);
+               // listComponentPositionDTO.add(componentPositionDTO);
+                
+                ComponentDTO componentDTO = new ComponentDTO();
+                componentDTO.setArtikelnummer(artikelnummer);
+                componentDTO.setStuecklistenelement(componentPositionDTO.getStuecklistenelement());
+                componentDTO.setSatzart(componentPositionDTO.getSatzart());
+                componentDTO.setBeschreibung(componentPositionDTO.getBeschreibung());
+                componentDTO.setMengeneinheit(componentPositionDTO.getMengeneinheit());
+                componentDTO.setTheoretische_menge(componentPositionDTO.getTheoretische_menge());
+                componentDTO.setPreis_kosten_fuer_1000_me(componentPositionDTO.getPreis_kosten_fuer_1000_me());
+                componentDTO.setZuschlagsfaktor(componentPositionDTO.getZuschlagsfaktor());
+                componentDTO.setFiktive_stueckliste(componentPositionDTO.getFiktive_stueckliste());
+                componentDTO.setDatensatztyp(componentPositionDTO.getDatensatztyp());
+
+                listComponentDTO.add(componentDTO);
+            }
+            componentService.createOrUpdatePartListsService(listComponentDTO);
+
+        }
+
+
+
+        return null;
+    }
 }

@@ -3,31 +3,19 @@ package com.localintegrationapps.simpleapi.ui.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AddressRestInputModel {
-    @JsonProperty("geschaeftspartnernummer")
-    private String geschaeftspartnernummer;
-    @JsonProperty("name1")
-    private String name1;
-    @JsonProperty("name2")
-    private String name2;
-    @JsonProperty("strasse")
-    private String strasse;
-    @JsonProperty("ort")
-    private String ort;
-    @JsonProperty("postfach")
-    private String postfach;
-    @JsonProperty("plz_strasse")
-    private String plz_strasse;
-    @JsonProperty("plz_postfach")
-    private String plz_postfach;
-    @JsonProperty("land_iso_code")
-    private String land_iso_code;
-    @JsonProperty("sprachschluessel")
-    private String sprachschluessel;
-    @JsonProperty("geschaeftspartnertyp")
-    private String geschaeftspartnertyp;
-    @JsonProperty("datensatztyp")
-    private String datensatztyp;
 
+    private String geschaeftspartnernummer;
+    private String name1;
+    private String name2;
+    private String strasse;
+    private String ort;
+    private String postfach;
+    private String plz_strasse;
+    private String plz_postfach;
+    private String land_iso_code;
+    private String sprachschluessel;
+    private String geschaeftspartnertyp;
+    private String datensatztyp;
 
     public String getGeschaeftspartnernummer() {
         return geschaeftspartnernummer;
