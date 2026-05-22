@@ -1,9 +1,10 @@
-package com.localintegrationapps.simpleapi.dto;
+package com.localintegrationapps.simpleapi.ui.model.input;
 
 import javax.validation.constraints.NotNull;
 
-public class AddressDTO {
+public class AddressRestInputModel {
 
+//    @NotNull(message = "geschaeftspartnernummer must not be null")
     private String geschaeftspartnernummer;
     private String name1;
     private String name2;
@@ -14,6 +15,7 @@ public class AddressDTO {
     private String plz_postfach;
     private String land_iso_code;
     private String sprachschluessel;
+//    @NotNull(message = "geschaeftspartnertyp must not be null")
     private String geschaeftspartnertyp;
     private String datensatztyp;
 

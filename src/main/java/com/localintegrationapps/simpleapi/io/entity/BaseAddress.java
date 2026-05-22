@@ -1,9 +1,19 @@
-package com.localintegrationapps.simpleapi.dto;
+package com.localintegrationapps.simpleapi.io.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
-public class AddressDTO {
-
+@MappedSuperclass
+@IdClass(AddressId.class)
+public abstract class BaseAddress {
+    @Id
     private String geschaeftspartnernummer;
     private String name1;
     private String name2;
@@ -14,8 +24,17 @@ public class AddressDTO {
     private String plz_postfach;
     private String land_iso_code;
     private String sprachschluessel;
+    @Id
     private String geschaeftspartnertyp;
     private String datensatztyp;
+
+    @CreationTimestamp
+    @Column(name="createdAt", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @CreationTimestamp
+    @Column(name="updatedAt", insertable = false, updatable = true)
+    private LocalDateTime updatedAt ;
 
     public String getGeschaeftspartnernummer() {
         return geschaeftspartnernummer;
@@ -112,4 +131,22 @@ public class AddressDTO {
     public void setDatensatztyp(String datensatztyp) {
         this.datensatztyp = datensatztyp;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
+
+
