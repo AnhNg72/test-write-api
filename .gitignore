@@ -1,6 +1,5 @@
 .idea
 actions-runner
-.github
 #k8s/deployment.yaml
 HELP.md
 target/
