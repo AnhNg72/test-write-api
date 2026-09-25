@@ -48,5 +48,5 @@ jobs:
           git config user.name "AnhNg72"
           git config user.email "VanAnh.Nguyen@liebherr.com"
           git add .
-          git commit -m "Update image to ${{ github.sha }}"
+          git commit -m "Update test image to ${{ github.sha }}"
           git push
