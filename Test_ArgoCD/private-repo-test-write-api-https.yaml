@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: private-repo-test-write-api-https
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+
+stringData:
+  type: "git"
+  url: "https://github.com/AnhNg72/test-write-api.git"
+  username: "test-gh-token"
+  password: "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"
+
+type: Opaque

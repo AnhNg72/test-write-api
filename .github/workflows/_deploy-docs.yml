@@ -2,7 +2,7 @@
 name: Reusable - Deploy Docs
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       runner:
         description: "Runner label"
