@@ -25,8 +25,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -34,23 +32,6 @@ jobs:
           cache: npm
 
       - uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
-
-      - name: Verify environment
-        run: |
-          node --version
-          npm --version
-
-      - name: Verify toolchain
-        shell: powershell
-        run: |
-          uv --version
-          uv python list
-          uv run python --version
-          node --version
-          npm --version
-          npx --version
 
       - name: Install dependencies
         run: |
@@ -60,9 +41,9 @@ jobs:
       - name: Build docs
         run: uv run --frozen --group docs mkdocs build --strict
 
-      - uses: actions/configure-pages@v6
+      - uses: actions/configure-pages@v5
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
@@ -75,5 +56,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - id: deployment
+      - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v4
