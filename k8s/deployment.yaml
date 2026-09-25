@@ -23,7 +23,7 @@ spec:
         app: test-write-api
     spec:
       containers:
-      - image: 172.29.176.1:5000/test-write-api:aa2af56c77e2a42d31f985f030c2bb6c04035106
+      - image: 172.29.176.1:5000/test-write-api:42c154bd7e6ae18ae93066fd7c0f07a7a1edbd2d
         name: test-write-api
         imagePullPolicy: Always
         resources: {}
