@@ -21,16 +21,22 @@ concurrency:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
+      - name: Verify toolchain
+        shell: pwsh
+        run: |
+          uv --version
+          uv python list
+          uv run python --version
+          node --version
+          npm --version
+          npx --version
 
       - uses: actions/setup-node@v4
         with:
