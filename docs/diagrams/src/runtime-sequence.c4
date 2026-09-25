@@ -1,0 +1,38 @@
+// Laufzeitsicht: Verarbeitung eines RECENT.TXT-Polling-Zyklus.
+// Spiegelt inbound/src/main/java/.../camel/MainRoute.java wider.
+
+views {
+  dynamic view runtime-sequence {
+    title 'Import eines Wetterstationsfiles'
+    variant sequence
+
+    devops -> weatherStation.inbound 'Startet Anwendung (einmalig, danach automatisches Polling)'
+
+    ftp -> weatherStation.inbound.mainRoute 'Liefert RECENT.TXT'
+    weatherStation.inbound.mainRoute -> weatherStation.inbound.csvDataFormat 'unmarshal(body)'
+    weatherStation.inbound.csvDataFormat -> weatherStation.inbound.mainRoute 'Liste von WeatherStationRawDto (eine je Zeile)'
+
+    loop 'je Zeile aus dem Camel-Splitter' {
+      weatherStation.inbound.mainRoute -> weatherStation.inbound.rawDto 'validate (bean-validator, Jakarta Bean Validation)'
+
+      alt {
+        when 'gültig' {
+          weatherStation.inbound.mainRoute -> weatherStation.inbound.mapper 'map(rawDto)'
+          weatherStation.inbound.mapper -> weatherStation.inbound.mainRoute 'SyncLHWeatherStationMeasurementBod'
+          weatherStation.inbound.mainRoute -> kafka 'Veröffentlicht JSON, Key = Sender-componentId'
+        }
+        else 'ungültig oder Verarbeitungsfehler' {
+          weatherStation.inbound.mainRoute -> kafkaDeadLetter 'Veröffentlicht Rohzeile' {
+            notes '''
+              Recoverable-Fehler werden zuvor bis zu 3x mit exponentiellem Backoff wiederholt
+              (RecoverableException). Validierungsfehler und UnrecoverableException landen
+              sofort im Dead-Letter-Topic.
+            '''
+          }
+        }
+      }
+    }
+
+    weatherStation.inbound.mainRoute -> ftp 'Verschiebt Datei nach .processed'
+  }
+}

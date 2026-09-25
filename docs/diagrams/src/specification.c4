@@ -1,0 +1,32 @@
+specification {
+  element actor {
+    style { shape person }
+  }
+
+  element system
+
+  element externalSystem {
+    notation 'Externes System'
+    style {
+      color gray
+      opacity 10%
+    }
+  }
+
+  element component
+
+  element container {
+    notation 'Deployment-Einheit'
+    style {
+      color primary
+    }
+  }
+
+  element node {
+    notation 'Infrastrukturknoten'
+    style {
+      color muted
+      opacity 10%
+    }
+  }
+}

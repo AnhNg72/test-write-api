@@ -1,0 +1,55 @@
+// Deployment-Sicht: lokale Entwicklungsumgebung.
+// Spiegelt dev/docker/compose-common.yml, dev/docker/compose-inbound.yml
+// und den lokalen Gradle/Quarkus-Dev-Modus wider.
+
+model {
+  devMachine = node 'Entwicklerrechner' {
+    description 'Windows / macOS / Linux'
+
+    compose = node 'Docker Compose' {
+      description 'dev/docker/compose-common.yml + compose-inbound.yml'
+
+      localKafka = container 'Kafka' {
+        technology 'apache/kafka:3.7.0'
+      }
+      localKafkaUi = container 'Kafka UI' {
+        technology 'provectuslabs/kafka-ui'
+      }
+      localFtp = container 'FTP Server' {
+        technology 'fauria/vsftpd'
+      }
+      dataGenerator = container 'Data Generator' {
+        technology 'python:3.12-slim, dev/scripts/data-generator.py'
+        description 'Schreibt Dummy-RECENT.TXT-Dateien für lokale Tests'
+      }
+    }
+
+    jvm = node 'Gradle / JVM' {
+      description 'Lokaler Prozess'
+
+      app = container 'MCC Wetterstations-Adapter' {
+        technology 'Quarkus Dev Mode'
+      }
+    }
+  }
+
+  devMachine.jvm.app -> devMachine.compose.localFtp 'Pollt RECENT.TXT'
+  devMachine.jvm.app -> devMachine.compose.localKafka 'Veröffentlicht Wetterstations-Events'
+  devMachine.compose.localKafkaUi -> devMachine.compose.localKafka 'Inspiziert Topics'
+  devMachine.compose.dataGenerator -> devMachine.compose.localFtp 'Schreibt RECENT.TXT'
+}
+
+views {
+  view deployment-local {
+    title 'Lokale Entwicklungsumgebung'
+
+    include devMachine
+    include devMachine.compose
+    include devMachine.compose.localKafka
+    include devMachine.compose.localKafkaUi
+    include devMachine.compose.localFtp
+    include devMachine.compose.dataGenerator
+    include devMachine.jvm
+    include devMachine.jvm.app
+  }
+}
