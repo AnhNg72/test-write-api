@@ -1,0 +1,44 @@
+// Komponentendetails für weatherStation.inbound (siehe model.c4),
+// abgeleitet aus den tatsächlichen Quellen unter inbound/src/main/java.
+
+model {
+  extend weatherStation.inbound {
+    mainRoute = component 'MainRoute' {
+      technology 'Camel RouteBuilder'
+      description 'Koordiniert FTP-Polling, CSV-Parsing, Validierung, Mapping und Kafka-Publish (Routen: ftp-to-kafka, process-record, dead-letter)'
+    }
+    csvDataFormat = component 'WeatherStationCsvDataFormat' {
+      technology 'Camel DataFormat (Jackson CSV)'
+      description 'Wandelt die tabgetrennten Zeilen der RECENT.TXT in WeatherStationRawDto-Objekte um'
+    }
+    rawDto = component 'WeatherStationRawDto' {
+      technology 'Java Record + Jakarta Bean Validation'
+      description 'Transportmodell; wird in der Route über die Camel-bean-validator-Komponente validiert'
+    }
+    mapper = component 'WeatherStationMapper' {
+      technology 'CDI Bean'
+      description 'Mappt WeatherStationRawDto auf SyncLHWeatherStationMeasurementBod'
+    }
+
+    ftp -> mainRoute 'Liefert RECENT.TXT'
+    mainRoute -> csvDataFormat 'Unmarshalt den Dateiinhalt'
+    csvDataFormat -> rawDto 'Erzeugt eine Instanz je Zeile'
+    mainRoute -> rawDto 'Validiert via bean-validator (bei Fehler -> Dead-Letter)'
+    mainRoute -> mapper 'Ruft map(rawDto) auf'
+    mapper -> bodContracts 'Erzeugt SyncLHWeatherStationMeasurementBod (generierte Klasse)'
+    mainRoute -> kafka 'Veröffentlicht gültiges JSON, Key = Sender-componentId'
+    mainRoute -> kafkaDeadLetter 'Leitet abgelehnte / nicht wiederherstellbare Datensätze weiter'
+  }
+}
+
+views {
+  view component-inbound of weatherStation.inbound {
+    title 'Komponentensicht: Inbound-Modul'
+
+    include *
+    include ftp
+    include kafka
+    include kafkaDeadLetter
+    include bodContracts
+  }
+}

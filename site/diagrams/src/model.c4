@@ -1,0 +1,33 @@
+// Gemeinsames Modell für den MCC-Wetterstations-Adapter.
+// Views (system-context, component-inbound, runtime-sequence)
+// referenzieren diese Elemente, statt sie erneut zu definieren.
+
+model {
+  devops = actor 'Entwickler / Operator'
+
+  ftp = externalSystem 'FTP Server' {
+    description 'Stellt die Wetterstationsdatei RECENT.TXT bereit'
+  }
+  kafka = externalSystem 'Kafka' {
+    description 'Empfängt Wetterstations-Messevents auf Topic Bod.WeatherstationMeasurement'
+  }
+  kafkaDeadLetter = externalSystem 'Kafka (Dead-Letter-Topic)' {
+    description 'Empfängt abgelehnte / nicht wiederherstellbare Datensätze auf Topic Bod.WeatherstationMeasurement.DeadLetter'
+  }
+  bodContracts = externalSystem 'LIS BOD Contract Repository' {
+    technology 'com.liebherr.bridge:lis_bridge_contract_bod'
+    description 'Gemeinsames Repository mit LIS; liefert BOD-JSON-Schemas, aus denen nur die benötigten (sync-lh-weatherstation-measurement-bod.json, bod-common.json) zur Build-Zeit per jsonSchema2Pojo in Java-Klassen übersetzt werden'
+  }
+
+  weatherStation = system 'MCC Wetterstations-Adapter' {
+    inbound = component 'Inbound-Modul (Quarkus + Apache Camel)'
+    docsite = component 'Projektdokumentation (MkDocs)'
+  }
+
+  devops -> inbound 'Startet und überwacht via Gradle / HTTP'
+  inbound -> ftp 'Pollt RECENT.TXT via FTP'
+  inbound -> kafka 'Veröffentlicht gültige Messwerte'
+  inbound -> kafkaDeadLetter 'Veröffentlicht abgelehnte / nicht wiederherstellbare Datensätze'
+  inbound -> bodContracts 'Lädt benötigte BOD-Schemas zur Build-Zeit (jsonSchema2Pojo-Codegen)'
+  devops -> docsite 'Liest im Browser'
+}

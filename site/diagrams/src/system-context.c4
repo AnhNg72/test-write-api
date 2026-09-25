@@ -1,0 +1,11 @@
+// Systemkontext-Sicht auf das gemeinsame Modell (siehe model.c4).
+
+views {
+  view system-context {
+    title 'Systemkontext'
+
+    include ftp
+    include kafka
+    include weatherStation
+  }
+}

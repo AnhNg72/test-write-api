@@ -1,0 +1,64 @@
+// Deployment-Sicht: Kubernetes / Helm-Chart (siehe helmchart/).
+
+model {
+  k8sCluster = node 'Kubernetes-Cluster' {
+    description 'Zielplattform'
+
+    namespace = node 'Namespace' {
+      description 'Release-Scope'
+
+      pod = node 'Pod' {
+        description 'Replicas: 1'
+
+        k8sApp = container 'mcc-weather-station' {
+          technology 'Quarkus-Container'
+        }
+      }
+
+      k8sService = container 'ClusterIP Service' {
+        technology 'Kubernetes Service, Port 8080'
+      }
+      k8sConfigMap = container 'ConfigMap' {
+        technology 'Anwendungskonfiguration (Kafka, FTP-Host/Port, Cluster-Name, ...)'
+      }
+      k8sFtpSecret = container 'FTP-Zugangsdaten-Secret' {
+        technology 'mcc-weatherstation-ftp-secret'
+        description 'Stellt FTP_USERNAME / FTP_PASSWORD bereit; direkt als Umgebungsvariablen injiziert'
+      }
+    }
+  }
+
+  k8sExtFtp = externalSystem 'FTP Server' {
+    description 'Produktiver Endpunkt im Repository nicht dokumentiert'
+  }
+  k8sExtKafka = externalSystem 'Kafka' {
+    description 'mcc-cluster-kafka-bootstrap.mcc-il-platform.svc.cluster.local:9092'
+  }
+  k8sExtKafkaDeadLetter = externalSystem 'Kafka (Dead-Letter-Topic)' {
+    description 'Bod.WeatherstationMeasurement.DeadLetter, bereitgestellt via Strimzi KafkaTopic'
+  }
+
+  k8sCluster.namespace.k8sService -> k8sCluster.namespace.pod.k8sApp 'Leitet HTTP-Traffic (Port 8080)'
+  k8sCluster.namespace.k8sConfigMap -> k8sCluster.namespace.pod.k8sApp 'Stellt Umgebungsvariablen bereit'
+  k8sCluster.namespace.k8sFtpSecret -> k8sCluster.namespace.pod.k8sApp 'Stellt FTP-Benutzername / -Passwort bereit'
+  k8sCluster.namespace.pod.k8sApp -> k8sExtFtp 'Pollt Datei'
+  k8sCluster.namespace.pod.k8sApp -> k8sExtKafka 'Veröffentlicht Nachrichten'
+  k8sCluster.namespace.pod.k8sApp -> k8sExtKafkaDeadLetter 'Veröffentlicht abgelehnte Datensätze'
+}
+
+views {
+  view deployment-k8s {
+    title 'Kubernetes / Helm Deployment'
+
+    include k8sCluster
+    include k8sCluster.namespace
+    include k8sCluster.namespace.pod
+    include k8sCluster.namespace.pod.k8sApp
+    include k8sCluster.namespace.k8sService
+    include k8sCluster.namespace.k8sConfigMap
+    include k8sCluster.namespace.k8sFtpSecret
+    include k8sExtFtp
+    include k8sExtKafka
+    include k8sExtKafkaDeadLetter
+  }
+}
