@@ -50,3 +50,9 @@ jobs:
           git add .
           git commit -m "Update image to ${{ github.sha }}"
           git push
+
+  # Run _deploy-docs.yml workflow
+  docs:
+    uses: ./.github/workflows/_deploy-docs.yml
+    with:
+      runner: MCRNB89090
