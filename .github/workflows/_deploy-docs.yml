@@ -8,7 +8,7 @@ on:
         description: "Runner label"
         required: false
         type: string
-        default: self-hosted
+        default: MCRNB89090
 
 permissions:
   contents: read
