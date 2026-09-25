@@ -28,16 +28,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify toolchain
-        shell: pwsh
-        run: |
-          uv --version
-          uv python list
-          uv run python --version
-          node --version
-          npm --version
-          npx --version
-
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -51,6 +41,16 @@ jobs:
         run: |
           node --version
           npm --version
+
+      - name: Verify toolchain
+        shell: pwsh
+        run: |
+          uv --version
+          uv python list
+          uv run python --version
+          node --version
+          npm --version
+          npx --version
 
       - name: Install dependencies
         run: |
