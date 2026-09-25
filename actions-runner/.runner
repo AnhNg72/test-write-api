@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 22,
+  "agentName": "MCRNB89090",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus26.actions.githubusercontent.com/bdJaMS6thfS4ohJmXUZ3Z3zfpziPAKk2XQ2akMg83ociFtHyMe/",
+  "gitHubUrl": "https://github.com/AnhNg72/test-write-api",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
