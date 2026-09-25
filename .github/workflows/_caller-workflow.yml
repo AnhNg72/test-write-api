@@ -11,8 +11,10 @@ on:
       - package.json
       - package-lock.json
 
+
 jobs:
   docs:
     uses: ./.github/workflows/_deploy-docs.yml
     with:
       runner: MCRNB89090
+  runs-on: self-hosted
