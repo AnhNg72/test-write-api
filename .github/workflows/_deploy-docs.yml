@@ -8,6 +8,12 @@ on:
     paths-ignore:
       - 'k8s/**'
   workflow_dispatch:
+    inputs:
+      runner:
+        description: "Runner label"
+        required: false
+        type: string
+        default: self-hosted
 
 permissions:
   contents: read
